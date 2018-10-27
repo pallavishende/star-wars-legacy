@@ -1,0 +1,36 @@
+<span class="glyphicon glyphicon-refresh glyphicon-spin spinner" *ngIf="loading"></span>
+<div class="card " *ngIf="StarDetail">
+    <div class="card-header" >
+        <b>{{StarDetail.name}}</b> Starred in following Movies
+    </div>
+
+    <!-- Filter the Products   -->
+    <div class="">
+
+      <div *ngIf="StarDetail">
+        <div class="form-group">
+          <div class="row">
+
+          </div>
+        </div>
+        <div id="systemTableX">
+          <div class="table-responsive" *ngIf="StarDetail.url && StarDetail.url.length">
+              <table class="table table-striped dqf">
+                  <thead>
+                      <tr>
+                          <th>Movies</th>
+                          <th>Release Date</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let movieData of StarDetail.url">
+                          <td>{{ movieData.title }}</td>
+                          <td>{{movieData.releaseDate | date : "fullDate"}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

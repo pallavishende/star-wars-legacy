@@ -1,0 +1,33 @@
+<div class="card ">
+    <div class="card-header">
+        Star wars legends
+    </div>
+
+    <!-- Filter the Products   -->
+    <div class="">
+
+        <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
+        <div id="systemTableX">
+            <div class="table-responsive" *ngIf="characters && characters.length">
+                <table class="table table-striped dqf">
+                    <!--thead>
+                        <tr>
+                            <th>Name</th>
+
+                        </tr>
+                    </thead-->
+                    <tbody>
+                        <tr *ngFor="let character of characters">
+                            <td><div (click)="routeToDetails(character.name, character.url)" class="hlink"><a>{{ character.name }}</a></div></td>
+                            <!--td><a><i class="hlink" (click)="routeToDetails(character.name, character.url)">
+                                {{character.url}}
+                              </i></a>
+                            </td-->
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
