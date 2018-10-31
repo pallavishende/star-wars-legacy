@@ -15,8 +15,6 @@ export class AppComponent {
           router.events.subscribe((routerEvent: Event) => {
               this.checkRouterEvent(routerEvent);
           });
-
-          //console.log(5<6<7);
       }
 
       checkRouterEvent(routerEvent: Event): void {

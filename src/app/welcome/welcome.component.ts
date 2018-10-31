@@ -17,24 +17,14 @@ import { movieDetails } from '../moviesObject';
 export class WelcomeComponent implements OnInit {
   tableData = TableData[0];
   characters = this.tableData.characters;
-  character:IStarWars;
+  character: IStarWars;
   errorMessage = '';
   pageTitle = 'Star Wars Characters';
   starwarobj = {
     name: '',
     urlDetails: '',
     releaseDate: new Date,
-    height: '',
     films: [],
-    mass: '',
-    hair_color: '',
-    skin_color: '',
-    eye_color: '',
-    birth_year: '',
-    gender: '',
-    homeworld: '',
-    created: '',
-    edited: '',
     url: ''
   };
 
@@ -48,35 +38,11 @@ export class WelcomeComponent implements OnInit {
 
   }
 
-  routeToDetails(name, url){
+  routeToDetails(name, url) {
     this.starwarobj.name = name;
     this.starwarobj.urlDetails = url;
-    this.getCharacters(url);
+    this.starWarsService.set(this.starwarobj);
+    this.router.navigate(['./characterDetails']);
   }
 
-  getCharacters(url){
-    this.welcomeService.getCharacters(url).subscribe(character => {
-          this.character = character;
-
-          if(this.character){
-            this.starwarobj.releaseDate = new Date(this.character.releaseDate);
-            this.starwarobj.height = this.character.height;
-            this.starwarobj.films = this.character.films;
-            this.starwarobj.mass = this.character.mass;
-            this.starwarobj.hair_color = this.character.hair_color;
-            this.starwarobj.skin_color = this.character.skin_color;
-            this.starwarobj.eye_color = this.character.eye_color;
-            this.starwarobj.birth_year = this.character.birth_year;
-            this.starwarobj.gender = this.character.gender;
-            this.starwarobj.homeworld = this.character.homeworld;
-            this.starwarobj.created = this.character.created;
-            this.starwarobj.edited = this.character.edited;
-
-            this.starWarsService.set(this.starwarobj);
-
-            this.router.navigate(['./characterDetails']);
-          }
-        },
-        (error) => {this.errorMessage = 'Failed to retrieve data'});
-  }
 }

@@ -1,8 +1,7 @@
 
 export class movieDetails {
-
-	public title: string;
-  public releaseDate: string;
+	title: string;
+  releaseDate: string;
 
   constructor(title, releaseDate){
     this.releaseDate = releaseDate;

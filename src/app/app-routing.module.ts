@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { CharacterDetailsComponent } from './character-details/character-details.component';
-import { CharacterResolver } from './welcome/character-details.resolve';
+import { CharacterResolver } from './character-details/character-details.resolve';
 
 @NgModule({
     imports: [

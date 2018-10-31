@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StarWarsService } from '../starWars.service';
 import { IStarWars } from '../starWarsObject';
-
 
 @Component({
   selector: 'app-character-details',
@@ -14,40 +13,18 @@ export class CharacterDetailsComponent implements OnInit {
   StarDetail: IStarWars;
   moviedata: IStarWars;
   loading: boolean = true;
-  constructor(private starWarsService: StarWarsService, private route: ActivatedRoute) { }
+  constructor(private starWarsService: StarWarsService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    /*
-      this.moviedata = this.route.snapshot.data['StarDetail'];
-      console.log(this.moviedata);
-      if(this.moviedata) {
-        this.StarDetail = this.moviedata;
-      }
-      */
-
       this.starWarsService.currentMessage.subscribe(message => {
         if(message){
           this.StarDetail = message;
           this.loading = false;
-          console.log(this.StarDetail);
         }
-
       });
+    }
+
+    routeback(){
+      this.router.navigate(['/welcome']);
+    }
   }
-
-      /*
-  ngOnInit() {
-
-    this.starWarsService.currentMessage.subscribe(message => {
-      if(message){
-        this.StarDetail = message;
-        console.log(this.StarDetail);
-      }
-
-    });
-
-    //console.log(this.StarDetail);
-
-  }
-*/
-}

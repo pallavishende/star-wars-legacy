@@ -12,25 +12,6 @@ import { IStarWars } from './starWarsObject';
 export class StarWarsService {
 
     starwarobj:IStarWars = undefined;
-
-    /*{
-      name: '',
-      urlDetails: '',
-      releaseDate: new Date,
-      height: '',
-      films: [],
-      mass: '',
-      hair_color: '',
-      skin_color: '',
-      eye_color: '',
-      birth_year: '',
-      gender: '',
-      homeworld: '',
-      created: '',
-      edited: '',
-      url: ''
-    };
-*/
     private starObservable = new BehaviorSubject<IStarWars>(this.starwarobj);
     currentMessage = this.starObservable.asObservable();
 
@@ -40,14 +21,11 @@ export class StarWarsService {
       this.starwarobj = starwarobj
     }
 
-
-    get(){
+    get():IStarWars{
       return this.starwarobj;
     }
 
-
     changeStarWarsObj(obj: any) {
-        //console.log('currentMessage: ' + JSON.stringify(obj))
         return this.starObservable.next(obj);
     }
 
