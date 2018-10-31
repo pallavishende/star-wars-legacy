@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { WelcomeModule } from './welcome/welcome.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CharacterDetailsComponent } from './character-details/character-details.component';
+import { PageNotFoundComponent } from './page-not-found.component';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   declarations: [
     AppComponent,
+    PageNotFoundComponent,
     CharacterDetailsComponent
   ],
   providers: [],
