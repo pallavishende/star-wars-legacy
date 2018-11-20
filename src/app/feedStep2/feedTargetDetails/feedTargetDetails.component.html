@@ -1,0 +1,333 @@
+
+
+<article class="scheduler-border">
+<div class="form-header">Target System Details</div>
+  <form #targetDetailFeedForm="ngForm" disableForm [disableTextControl]="disableRoleTarget">
+  <div class="row">
+
+    <!--col-12-->
+
+      <div class="col-md-6">
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="targetDirectory">Target Directory<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="targetDirectory"
+              name="targetDirectory"
+              aria-describedby="targetDirectoryhelp"
+              placeholder="Enter Directory"
+              [(ngModel)]="feedTargetObj.targetDirectory"
+              required >
+          </div>
+        </div>
+
+		<div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="exceptionDirectory">Exception Directory<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="exceptionDirectory"
+              name="exceptionDirectory"
+              aria-describedby="exceptionDirectoryhelp"
+              placeholder="Enter Directory"
+              [(ngModel)]="feedTargetObj.exceptionDirectory"
+              required >
+          </div>
+        </div>
+
+
+
+        <!--<div class="form-group row">-->
+            <!--<label for="targetDirectory" class="col-md-4 col-form-label-sm">Target Directory</label>-->
+            <!--<div class="col-md-6">-->
+              <!--<input -->
+                <!--type="text" -->
+                <!--class="form-control"-->
+                <!--id="targetDirectory" -->
+                <!--name="targetDirectory"-->
+                <!--aria-describedby="targetDirectoryhelp" -->
+                <!--placeholder="Enter Directory"-->
+                <!--[(ngModel)]="feedTargetObj.targetDirectory"-->
+                <!--required-->
+                <!--&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="targetServerName">Server Name<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="targetServerName"
+              name="targetServerName"
+              required
+              aria-describedby="targetServerNamehelp"
+              placeholder="Enter Name"
+              [(ngModel)]="feedTargetObj.targetServerName" >
+          </div>
+        </div>
+
+        <!--<div class="form-group row">-->
+            <!--<label for="targetServerName" class="col-md-4 col-form-label-sm">Server Name</label>-->
+            <!--<div class="col-md-6">-->
+              <!--<input -->
+                <!--type="text" -->
+                <!--class="form-control"-->
+                <!--id="targetServerName" -->
+                <!--name="targetServerName" -->
+                <!--required-->
+                <!--aria-describedby="targetServerNamehelp" -->
+                <!--placeholder="Enter Name"-->
+                <!--[(ngModel)]="feedTargetObj.targetServerName" >-->
+                <!--&lt;!&ndash; <p class="error" *ngIf="systemDefForm.value.sourceServerName.length == 0">Required</p> &ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="userId">User Id<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="userId"
+              name="userId"
+              aria-describedby="feedNameHelp"
+              placeholder="Enter Id"
+              [(ngModel)]="feedTargetObj.targetUserId"
+              required >
+          </div>
+        </div>
+
+        <!--<div class="form-group row">-->
+            <!--<label for="userId" class="col-md-4 col-form-label-sm">User Id</label>-->
+            <!--<div class="col-md-6">-->
+              <!--<input -->
+                <!--type="text" -->
+                <!--class="form-control"-->
+                <!--id="userId" -->
+                <!--name="userId"-->
+                <!--aria-describedby="feedNameHelp" -->
+                <!--placeholder="Enter Id"-->
+                <!--[(ngModel)]="feedTargetObj.targetUserId" -->
+                <!--required >-->
+            <!--</div>-->
+          <!--</div>-->
+      </div>
+
+
+
+      <div class="col-md-6">
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="targetPort">Port Number</label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              pattern="[0-9]*"
+              class="form-control"
+              id="targetPort"
+              name="targetPort"
+              aria-describedby="targetPorthelp"
+              placeholder="Enter Number"
+              [(ngModel)]="feedTargetObj.targetPort"
+              #targetPort="ngModel"
+              ngModel
+               >
+            <show-errors [control]="targetPort"></show-errors>
+          </div>
+        </div>
+
+        <!--<div class="form-group row">-->
+            <!--<label for="targetPort" class="col-md-4 col-form-label-sm">Port Number</label>-->
+            <!--<div class="col-md-8">-->
+              <!--<input -->
+                <!--type="number" -->
+                <!--class="form-control" -->
+                <!--id="targetPort"-->
+                <!--name="targetPort" -->
+                <!--aria-describedby="targetPorthelp"-->
+                <!--placeholder="Enter Number" -->
+                <!--[(ngModel)]="feedTargetObj.targetPort"-->
+				<!--#targetPort="ngModel" -->
+                <!--ngModel -->
+                <!--required >-->
+				    <!--<show-errors [control]="targetPort"></show-errors>-->
+            <!--</div>-->
+          <!--</div>-->
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="targetTransportMethod">Transport Method<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select
+              required
+              id="targetTransportMethod"
+              name="targetTransportMethod"
+              class="form-control"
+              [(ngModel)]="feedTargetObj.transportMethod" >
+              <option >Select</option>
+              <option
+                *ngFor="let x of transportMethodList"
+                [value]="x"
+                [selected]="feedTargetObj.transportMethod === x">
+                {{x}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+		<div class="form-group ubs-form-element row" >
+          <div class="col-md-5 ">
+            <label for="targetfeedformat">Transfer Feed Format<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="">
+                    <span class="radio-padding"><input [(ngModel)]="feedTargetObj.transferFeedFormat" type="radio" name="targetfeedformat" value="Original" > Original</span>
+
+                    <span class="radio-padding"><input [(ngModel)]="feedTargetObj.transferFeedFormat" type="radio" name="targetfeedformat" value="Good"> Good</span>
+
+                    <span class="radio-padding" *ngIf ="targetFeedType == 5">
+                    <input [(ngModel)]="feedTargetObj.transferFeedFormat" type="radio" name="targetfeedformat" value="Parsed"
+                      >
+                      Parsed
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    <!--col-md-6-->
+
+    <div class="col-12 ">
+	<hr>
+		<div class="pull-right">
+		  <button type="button" [disabled]="(targetDetailFeedForm.invalid || targetDetailFeedForm.pending) || !disableRoleTarget"
+				  class="btn ubs-form-btn btn-primary main-btn" (click)="onSubmitSys()" >
+			<span *ngIf="editMode == 'add'">Add</span>
+			<span *ngIf="editMode == 'edit'">Save</span>
+		  </button>
+
+		  <button type="button" class="btn ubs-form-btn btn-primary" (click)="goBack()">Close</button>
+		</div>
+	</div>
+
+	<div class="col-12"> <div class="form-group ubs-form-element row"></div></div>
+
+	<!--<div class="col-12">
+
+      <div *ngIf="targetSystemList.length > 0" >
+        <table class="table table-bordered table-striped dqf">
+          <thead>
+          <tr>
+
+            <th>Server</th>
+            <th>Directory</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let sys of targetSystemList">
+
+            <td widthX="40%" class="truncate-text">{{sys.targetServerName}}</td>
+            <td widthX="40%" class="truncate-text">{{sys.targetDirectory}}</td>
+            <td width="15%">
+
+              <div class="table-action-wrap" >
+                <div  class="table-action">
+                  <span *ngIf="disableRoleTarget"
+                    style="cursor:pointer"
+                    (click)="editSystem(sys.targetId)">
+                    Edit
+                  </span>
+                  <span *ngIf="!disableRoleTarget"
+                    style="cursor:pointer"
+                    (click)="editSystem(sys.targetId)">
+                    View
+                  </span>
+                </div>
+                <div *ngIf="editMode != 'edit'" class="table-action">
+                  <span *ngIf="disableRoleTarget"
+                    style="cursor:pointer"
+                    (click)="deleteSystem(sys.targetId)">
+                    Delete
+                  </span>
+                </div>
+              </div>
+
+              &lt;!&ndash;<button class="btn-table btn btn-primary " style="padding:3px 5px;" aria-label="Delete" [disabled]="!disableRoleTarget" (click)="editSystem(sys.targetId)">&ndash;&gt;
+                &lt;!&ndash;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>&ndash;&gt;
+              &lt;!&ndash;</button>&ndash;&gt;
+              &lt;!&ndash;<button class="btn-table btn btn-danger" style="padding:3px 5px;" aria-label="Delete" (click)="deleteSystem(sys.targetId)"&ndash;&gt;
+                      &lt;!&ndash;[disabled] ="editMode === 'edit' || !disableRoleTarget">&ndash;&gt;
+                &lt;!&ndash;<i class="fa fa-trash-o" aria-hidden="true"></i>&ndash;&gt;
+              &lt;!&ndash;</button>&ndash;&gt;
+
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+-->
+  <!--</div>-->
+    <!--col-md-6-->
+
+  <!--<div class="col-md-6">-->
+
+    <!--<div *ngIf="targetSystemList.length > 0" >-->
+      <!--<table class="table table-bordered table-striped">-->
+       <!--<thead>-->
+         <!--<tr>-->
+         <!--<td>Server</td>-->
+         <!--<td>Directory</td>-->
+         <!--<td>Action</td>-->
+         <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+         <!--<tr *ngFor="let sys of targetSystemList">-->
+           <!--<td width="40%"><p class="truncate-text">{{sys.targetServerName}}</p></td>-->
+           <!--<td width="40%"><p class="truncate-text">{{sys.targetDirectory}}</p></td>-->
+           <!--<td width="20%">-->
+             <!--<button class="btn-table btn btn-primary " style="padding:3px 5px;" aria-label="Delete" [disabled]="!disableRoleTarget" (click)="editSystem(sys.targetId)">-->
+                <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
+             <!--</button>-->
+             <!--<button class="btn-table btn btn-danger" style="padding:3px 5px;" aria-label="Delete" (click)="deleteSystem(sys.targetId)"-->
+             <!--[disabled] ="editMode === 'edit' || !disableRoleTarget">-->
+                <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
+             <!--</button>-->
+           <!--</td>-->
+
+         <!--</tr>-->
+       <!--</tbody>-->
+       <!--</table>-->
+    <!--</div>-->
+
+  <!--</div>-->
+
+
+</div>
+</form>
+</article>

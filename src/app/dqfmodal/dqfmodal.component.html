@@ -1,0 +1,30 @@
+<ng-template #modalTemplate> 
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <ng-content select=".dqfTitle"></ng-content>
+
+    </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-content select=".modalBody"></ng-content>
+
+  </div>
+</ng-template>
+
+<ng-template #modalCommentTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <ng-content select=".dqfCmtTitle"></ng-content>
+    </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef2.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-content select=".modalCmtBody"></ng-content>
+
+  </div>
+</ng-template>

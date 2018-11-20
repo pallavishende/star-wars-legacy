@@ -1,0 +1,953 @@
+<form #targetFeedForm="ngForm" disableForm [disableTextControl]="disableRoleStep2">
+  <article class="scheduler-border">
+    <div class="form-header">Feed Details</div>
+
+    <div class="row" *ngIf="feedDefinition">
+
+      <div class="col-md-6">
+
+        <div class="form-group ubs-form-element row" *ngIf="feedDefinition.sourceName !== ''">
+          <div class="col-md-5 ">
+            <label for="sourceId">Source Feed Name<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              id="sourceId"
+              name="sourceId"
+              [disabled]="true"
+              type="text"
+              class="form-control"
+              [(ngModel)]="feedDefinition.sourceName">
+          </div>
+        </div>
+
+
+        <div class="form-group ubs-form-element row" *ngIf="targetSysObj.targetSysName !== ''">
+          <div class="col-md-5 ">
+            <label for="targetSystem">Target System<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select
+              id="targetSystem"
+              name="targetSystem"
+              class="form-control"
+              #targetSystem
+              (change)="onChangeSystemName($event, targetSystem.value)"
+              [(ngModel)]="feedDefinition.targetSystem">
+              <option value="">select</option>
+              <option *ngFor="let y of systemList" [selected]="feedDefinition.targetSystem == y.systemKey"
+                      [value]="y.systemKey">{{y.systemName}}
+              </option>
+            </select>
+
+
+          </div>
+        </div>
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="rootDirectory">Root Directory<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="rootDirectory"
+              name="rootDirectory"
+              aria-describedby="systemIdHelp"
+              placeholder="Enter dir"
+              [(ngModel)]="feedDefinition.rootDirectory"
+              #rootDirectory="ngModel"
+              ngModel required>
+            <show-errors [control]="rootDirectory"></show-errors>
+          </div>
+        </div>
+
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="feedId">Feed Id<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="feedId"
+              name="feedId"
+              aria-describedby="systemIdHelp"
+              placeholder="Enter id"
+              [(ngModel)]="feedDefinition.feedId"
+              #feedId="ngModel"
+              ngModel
+              required>
+            <show-errors [control]="feedId"></show-errors>
+          </div>
+        </div>
+
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="feedName">Feed Name<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="feedName"
+              name="feedName"
+              aria-describedby="systemIdHelp"
+              placeholder="Enter name"
+              [(ngModel)]="feedDefinition.feedName"
+              #feedName="ngModel"
+              ngModel
+              required>
+            <show-errors [control]="feedName"></show-errors>
+          </div>
+        </div>
+
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="feedDesc">Feed Description<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="feedDesc"
+              name="feedDesc"
+              aria-describedby="systemIdHelp"
+              placeholder="Enter name"
+              [(ngModel)]="feedDefinition.feedDescription"
+              #feedDescription="ngModel"
+              ngModel
+              required>
+            <show-errors [control]="feedDescription"></show-errors>
+          </div>
+        </div>
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="entityType">Entity Type</label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="entityType"
+              name="entityType"
+              aria-describedby="entityTypehelp"
+              placeholder="Enter Type"
+              [(ngModel)]="feedDefinition.entityType"
+              #entityType="ngModel"
+              >
+            <show-errors [control]="entityType"></show-errors>
+          </div>
+        </div>
+
+
+      </div>
+      <!--col-md-6-->
+
+      <div class="col-md-6">
+
+        <div class="form-group ubs-form-element row" *ngIf="xmlFlag; else elseXMLFlag">
+          <div class="col-md-5 ">
+            <label for="feedType1">Feed Type<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select disabled
+              id="feedType1"
+              name="feedType1"
+              class="form-control"
+              [(ngModel)]="feedDefinition.feedTypeKey">
+              <option >select</option>
+              <option
+                *ngFor="let x of sourceFeedTypeList"
+                [selected]="feedDefinition.feedTypeKey === x.feedTypeKey"
+                [value]="x.feedTypeKey">
+                {{x.feedTypeName}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <ng-template #elseXMLFlag>
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="feedType2">Feed Type<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select
+              id="feedType2"
+              name="feedType2"
+              class="form-control"
+              #feedTypeKey
+              (change)="onChangeFeedType($event, feedTypeKey.value)"
+              [(ngModel)]="feedDefinition.feedTypeKey" required>
+              <option value="">select</option>
+              <option
+                *ngFor="let x of sourceFeedTypeList"
+                [selected]="feedDefinition.feedTypeKey === x.feedTypeKey"
+                [value]="x.feedTypeKey">
+                {{x.feedTypeName}}
+              </option>
+            </select>
+          </div>
+        </div>
+        </ng-template>
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="timezone">Time Zone<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select
+              id="timezone"
+              name="timezone"
+              class="form-control"
+              [(ngModel)]="feedDefinition.timeZone"
+              required>
+              <option value="">select</option>
+              <option
+                *ngFor="let tz of timeZoneResultArray"
+                [selected]="feedDefinition.timeZone == tz"
+                [value]="tz">
+                {{tz}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="calendarTime">Calendar<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <select
+              id="calendarTime"
+              name="calendarTime"
+              class="form-control"
+              #calendarTime
+              [(ngModel)]="feedDefinition.procCalKey"
+              required
+              (change)="onChangeCalendarName($event, calendarTime.value)">
+              <option value="">select</option>
+              <option
+                *ngFor="let x of sourceFeedCalendarList"
+                [selected]="feedDefinition.procCalKey == x.processCalKey"
+                [value]="x.processCalKey">
+                {{x.processCalName}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="timezone">Wait Time (HH:MM)</label>
+          </div>
+          <div class="col-md-3">
+            <select
+              id="offsetHours"
+              name="offsetHours"
+              class="form-control"
+              [(ngModel)]="offsetHours"
+              #offsetH="ngModel"
+              ngModel>
+              <option
+                *ngFor="let x of offsetHoursArray"
+                [selected]="offsetHours == x" [value]="x">
+                {{x}}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <select
+              id="offsetm"
+              name="offsetm"
+              class="form-control"
+              [(ngModel)]="offsetMins"
+              #offsetM="ngModel"
+              ngModel>
+              <option
+                *ngFor="let x of offsetMinsArray"
+                [selected]="offsetMins == x"
+                [value]="x">
+                {{x}}
+              </option>
+            </select>
+          </div>
+          <show-errors [control]="offsetH"></show-errors>
+          <show-errors [control]="offsetM"></show-errors>
+        </div>
+
+        <div *ngIf="xmlFlag">
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="xmlpath1">Xml Path 1<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="xmlpath1"
+                name="xmlpath1"
+                aria-describedby="xmlpath1hep"
+                placeholder="Enter path"
+                [(ngModel)]="feedDefinition.xmlPath1"
+                required>
+              <show-errors [control]="feedDescription"></show-errors>
+            </div>
+          </div>
+
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="xmlpath2">Xml Path 2<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="xmlpath2"
+                name="xmlpath2"
+                aria-describedby="xmlpath1help"
+                placeholder="Enter path"
+                [(ngModel)]="feedDefinition.xmlPath2"
+                required>
+              <show-errors [control]="feedDescription"></show-errors>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="Primaryfeed">Primary Feed</label>
+          </div>
+          <div class="col-md-6">
+            <input
+              class="form-group ubs-form-element"
+              id="Primary"
+              name="Primary"
+              class="form-group"
+              type="checkbox"
+              name="Primary"
+              [(ngModel)]="feedDefinition.primeIndicator">
+          </div>
+        </div>
+
+
+      </div>
+      <!--col-md-6-->
+
+    </div>
+    <!--*ngIf="feedDefinition"-->
+
+  </article>
+
+  <div *ngIf="feedDefinition">
+
+      <article class="scheduler-border">
+        <div class="form-header">
+          Target Feed Details
+        </div>
+        <div class="">
+          <div class="col-md-12 text-right">
+            <input
+              class="xbr ubs-form-btn  btn btn-default main-btn"
+              type="button"
+              [disabled]="!disableRoleStep2"
+              (click)="openNewTargetFeedModal()"
+              value="New Target feed">
+
+          </div>
+
+          <div class="form-group ubs-form-element row"><div class="col-md-5 "> </div></div>
+
+          <div class="col-12">
+
+            <div *ngIf="targetFeedList && targetFeedList.length > 0" >
+              <table class="table table-bordered table-striped dqf">
+                <thead>
+                <tr>
+
+                  <th>Server</th>
+                  <th>Directory</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let sys of targetFeedList">
+
+
+                  <td widthX="40%" class="truncate-text">{{sys.targetDirectory}}</td>
+                  <td widthX="40%" class="truncate-text">{{sys.targetServerName}}</td>
+                  <td width="15%">
+
+                    <div class="table-action-wrap" >
+                      <div  class="table-action">
+                      <span *ngIf="disableRoleStep2"
+                            style="cursor:pointer"
+                            (click)="editSystem(sys.targetId)">
+                        Edit
+                      </span>
+                        <span *ngIf="!disableRoleStep2"
+                              style="cursor:pointer"
+                              (click)="editSystem(sys.targetId)">
+                        View
+                      </span>
+                      </div>
+                      <div *ngIf="editMode != 'edit'" class="table-action">
+                      <span *ngIf="disableRoleStep2"
+                            style="cursor:pointer"
+                            (click)="deleteSystem(sys.targetId)">
+                        Delete
+                      </span>
+                      </div>
+                    </div>
+
+                    <!--<button class="btn-table btn btn-primary " style="padding:3px 5px;" aria-label="Delete" [disabled]="!disableRoleTarget" (click)="editSystem(sys.targetId)">-->
+                    <!--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>-->
+                    <!--</button>-->
+                    <!--<button class="btn-table btn btn-danger" style="padding:3px 5px;" aria-label="Delete" (click)="deleteSystem(sys.targetId)"-->
+                    <!--[disabled] ="editMode === 'edit' || !disableRoleTarget">-->
+                    <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
+                    <!--</button>-->
+
+                  </td>
+
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+      </article>
+
+
+  <notfication-detail [feedNotiList]="feedNotiList" [targetSystemId]="feedDefinition.targetSystem"></notfication-detail>
+
+  </div>
+
+  <div class="row" *ngIf="feedHeaderFooter">
+    <div class="col-md-6">
+      <article class="scheduler-border">
+        <div class="form-header">Header & Footer Definition</div>
+
+        <div class="form-group ubs-form-element row" *ngIf="xmlFlag; else elseFirstSection">
+          <div class="col-md-5 ">
+            <label for="exclRecordCount">Exclusion Record Count<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="number"
+              class="form-control"
+              id="exclRecordCount"
+              disabled
+              name="exclRecordCount"
+              aria-describedby="exclRecordCountHelp"
+              placeholder="Enter number"
+              [(ngModel)]="feedDefinition.exclRecordCount"
+              #exclRecordCount="ngModel"
+              ngModel
+              required>
+            <show-errors [control]="exclRecordCount"></show-errors>
+          </div>
+        </div>
+        <ng-template #elseFirstSection>
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="exclRecordCount">Exclusion Record Count<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              pattern="[0-9]*"
+              class="form-control"
+              id="exclRecordCount"
+              name="exclRecordCount"
+              aria-describedby="exclRecordCountHelp"
+              placeholder="Enter number"
+              [(ngModel)]="feedDefinition.exclRecordCount"
+              #exclRecordCount="ngModel"
+              ngModel
+              required>
+            <show-errors [control]="exclRecordCount"></show-errors>
+          </div>
+        </div>
+        </ng-template>
+
+        <div *ngIf="feedDefinition.feedTypeKey != 5">
+          <div class="form-group ubs-form-element row" *ngIf="xmlFlag; else elseSecondSection">
+            <div class="col-md-5 ">
+              <label for="headerNumber">Number of Lines in Header<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                id="headerNumber"
+                name="headerNumber"
+                class="form-control"
+                disabled
+                [(ngModel)]="feedHeaderFooter.headerNumber"
+                #headerNumber="ngModel"
+                ngModel
+                required>
+              <show-errors [control]="headerNumber"></show-errors>
+            </div>
+          </div>
+          <ng-template #elseSecondSection>
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="headerNumber">Number of Lines in Header<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                id="headerNumber"
+                name="headerNumber"
+                class="form-control"
+                [(ngModel)]="feedHeaderFooter.headerNumber"
+                #headerNumber="ngModel"
+                ngModel
+                required>
+              <show-errors [control]="headerNumber"></show-errors>
+            </div>
+          </div>
+          </ng-template>
+
+          <div *ngIf="feedDefinition.feedTypeKey != 2">
+          <div class="form-group ubs-form-element row" *ngIf="xmlFlag; else elseThirdSection">
+            <div class="col-md-5 ">
+              <label for="headerDelimiter">Delimiter for Header<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="headerDelimiter"
+                name="headerDelimiter"
+                disabled
+                aria-describedby="systemIdHelp"
+                placeholder="Enter Delimiter"
+                [(ngModel)]="feedHeaderFooter.headerDelimiter"
+                required>
+            </div>
+          </div>
+
+
+            <ng-template #elseThirdSection>
+              <div class="form-group ubs-form-element row">
+                <div class="col-md-5 ">
+                  <label for="headerDelimiter">Delimiter for Header<span class="red">*</span></label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="headerDelimiter"
+                    name="headerDelimiter"
+                    aria-describedby="systemIdHelp"
+                    placeholder="Enter Delimiter"
+                    [(ngModel)]="feedHeaderFooter.headerDelimiter"
+                    required>
+                </div>
+              </div>
+
+            </ng-template>
+          </div>
+
+          <div class="form-group ubs-form-element row"  *ngIf="xmlFlag; else elseFourthSection">
+            <div class="col-md-5 ">
+              <label for="footerNumber">Number of Lines in Footer<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                pattern="[0-9]*"
+                id="footerNumber"
+                name="footerNumber"
+                class="form-control"
+                disabled
+                [(ngModel)]="feedHeaderFooter.footerNumber"
+                #footerNumber="ngModel"
+                ngModel
+                required>
+              <show-errors [control]="footerNumber"></show-errors>
+            </div>
+          </div>
+
+          <ng-template #elseFourthSection>
+            <div class="form-group ubs-form-element row">
+              <div class="col-md-5 ">
+                <label for="footerNumber">Number of Lines in Footer<span class="red">*</span></label>
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  id="footerNumber"
+                  name="footerNumber"
+                  class="form-control"
+                  [(ngModel)]="feedHeaderFooter.footerNumber"
+                  #footerNumber="ngModel"
+                  ngModel
+                  required>
+                <show-errors [control]="footerNumber"></show-errors>
+              </div>
+            </div>
+
+          </ng-template>
+
+          <div *ngIf="feedDefinition.feedTypeKey != 2">
+          <div class="form-group ubs-form-element row"  *ngIf="xmlFlag; else elseFifthSection">
+            <div class="col-md-5 ">
+              <label for="footerDelimiter">Delimiter for Footer<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="footerDelimiter"
+                name="footerDelimiter"
+                disabled
+                aria-describedby="systemIdHelp"
+                placeholder="Enter Delimiter"
+                [(ngModel)]="feedHeaderFooter.footerDelimiter"
+                required>
+            </div>
+          </div>
+
+            <ng-template #elseFifthSection>
+              <div class="form-group ubs-form-element row">
+                <div class="col-md-5 ">
+                  <label for="footerDelimiter">Delimiter for Footer<span class="red">*</span></label>
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="footerDelimiter"
+                    name="footerDelimiter"
+                    aria-describedby="systemIdHelp"
+                    placeholder="Enter Delimiter"
+                    [(ngModel)]="feedHeaderFooter.footerDelimiter"
+                    required>
+                </div>
+              </div>
+            </ng-template>
+
+        </div>
+
+
+        </div>
+
+        <div *ngIf="feedDefIndicator">
+
+          <div class="form-header">Pre Process</div>
+
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="preProcessIndicator">Pre Process Required</label>
+            </div>
+            <div class="col-md-6">
+              <input
+                class="form-group"
+                type="checkbox"
+                id="preProcessIndicator"
+                name="preProcessIndicator"
+                [(ngModel)]="preProcessInd">
+            </div>
+          </div>
+
+          <div *ngIf="preProcessInd === true">
+
+            <div class="form-group ubs-form-element row">
+              <div class="col-md-5 ">
+                <label for="feedpreProcessFilename">Filename<span class="red">*</span></label>
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="feedpreProcessFilename"
+                  name="feedpreProcessFilename"
+                  aria-describedby="feedpreProcessFilename"
+                  placeholder="Enter name"
+                  [(ngModel)]="feedDefIndicator.preProcessFilename"
+                  required>
+              </div>
+            </div>
+
+            <div class="form-group ubs-form-element row">
+              <div class="col-md-5 ">
+                <label for="feedpreProcessDirectory">Directory<span class="red">*</span></label>
+              </div>
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="feedpreProcessDirectory"
+                  name="feedpreProcessDirectory"
+                  aria-describedby="feedpreProcessDirectory"
+                  placeholder="Enter Dir"
+                  [(ngModel)]="feedDefIndicator.preProcessDirectory"
+                  required>
+              </div>
+            </div>
+
+          </div>
+          <!--*ngIf="preProcessInd === true"-->
+
+        </div>
+
+        <!--<div class="form-group row" *ngIf="feedDefinition.feedTypeKey != 2">-->
+        <!--<label for="footerDelimiter" class="col-md-4 col-form-label-sm">*Delimiter for Footer</label>-->
+        <!--<div class="col-md-6">-->
+        <!--<input -->
+        <!--type="text" -->
+        <!--class="form-control" -->
+        <!--id="footerDelimiter" -->
+        <!--name="footerDelimiter" -->
+        <!--aria-describedby="systemIdHelp"-->
+        <!--placeholder="Enter DeLimiter"-->
+        <!--[(ngModel)]="feedHeaderFooter.footerDelimiter" -->
+        <!--required >-->
+        <!--</div>-->
+        <!--</div>-->
+
+      </article>
+
+    </div>
+
+
+
+    <div class="col-md-6">
+
+      <article>
+        <div class="form-header">Data</div>
+
+        <div *ngIf="feedDefinition.feedTypeKey != 2">
+        <div class="form-group ubs-form-element row" *ngIf="xmlFlag; else elseSixthSection">
+          <div class="col-md-5 ">
+            <label for="dataLimiter">Data Delimiter<span class="red">*</span></label>
+          </div>
+          <div class="col-md-6">
+            <input
+              type="text"
+              class="form-control"
+              id="dataLimiter"
+              name="dataLimiter"
+              aria-describedby="dataLimiterHelp"
+              placeholder="Enter Delimiter"
+              [(ngModel)]="feedHeaderFooter.dataDelimiter"
+              #dataLimiter="ngModel"
+              ngModel
+              required disabled>
+            <show-errors [control]="dataLimiter"></show-errors>
+          </div>
+        </div>
+
+        <ng-template #elseSixthSection>
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="dataLimiter">Data Delimiter<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <input
+                type="text"
+                class="form-control"
+                id="dataLimiter"
+                name="dataLimiter"
+                aria-describedby="dataLimiterHelp"
+                placeholder="Enter Delimiter"
+                [(ngModel)]="feedHeaderFooter.dataDelimiter"
+                #dataLimiter="ngModel"
+                ngModel
+                required>
+              <show-errors [control]="dataLimiter"></show-errors>
+            </div>
+          </div>
+        </ng-template>
+        </div>
+
+
+        <div class="form-group ubs-form-element row"  *ngIf="xmlFlag; else elseSeventhSection">
+          <div class="col-md-5 ">
+            <label for="dataLimiter">Data Text Qualifier</label>
+          </div>
+          <div class="col-md-6">
+            <select
+              id="textQualifier"
+              name="textQualifier"
+              class="form-control"
+              [(ngModel)]="feedHeaderFooter.textQualifier"
+              #textQualifier="ngModel"
+              ngModel disabled>
+              <option value="">select</option>
+              <option
+                *ngFor="let z of textQualifierList"
+                [selected]="feedHeaderFooter.textQualifier == z"
+                [value]="z">
+                {{z}}
+              </option>
+            </select>
+            <show-errors [control]="textQualifier"></show-errors>
+          </div>
+        </div>
+
+        <ng-template #elseSeventhSection>
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="dataLimiter">Data Text Qualifier<span class="red">*</span></label>
+            </div>
+            <div class="col-md-6">
+              <select
+                id="textQualifier"
+                name="textQualifier"
+                class="form-control"
+                [(ngModel)]="feedHeaderFooter.textQualifier"
+                #textQualifier="ngModel"
+                ngModel required>
+                <option value="">select</option>
+                <option
+                  *ngFor="let z of textQualifierList"
+                  [selected]="feedHeaderFooter.textQualifier == z"
+                  [value]="z">
+                  {{z}}
+                </option>
+              </select>
+              <show-errors [control]="textQualifier"></show-errors>
+            </div>
+          </div>
+        </ng-template>
+
+
+        <div *ngIf="feedDefIndicator">
+          <div class="form-header">Feed Activation</div>
+
+          <div class="form-group ubs-form-element row">
+            <div class="col-md-5 ">
+              <label for="feedActiveDt">Activation Date<span class="red">*</span></label>
+            </div>
+            <div class="col-md-4">
+              <input
+                class="form-control"
+                type="text"
+                matInput
+                [matDatepicker]="picker"
+                placeholder="Choose a date"
+                [min]="minDate"
+                [max]="maxDate"
+                [(ngModel)]="feedDefIndicator.feedActiveDt"
+                id="feedActiveDt"
+                name="feedActiveDt"
+                required>
+            </div>
+            <div class="col-1">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker [disabled]="!disableRoleStep2" #picker></mat-datepicker>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </article>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+
+
+
+  </div>
+
+
+
+  <div class="row">
+    <hr>
+    <div class="col-md-12 ">
+      <hr>
+      <div class="pull-right">
+        <button type="button" class="btn ubs-form-btn btn-primary main-btn" (click)="onPreviousClick()">
+          <span>Previous</span>
+        </button>
+        <button
+          type="button"
+          class="btn ubs-form-btn btn-primary main-btn"
+          (click)="cancel()"
+          [disabled]="!disableRoleStep2">
+          Cancel
+        </button>
+        <button
+          type="button"
+          [disabled]="(targetFeedForm.invalid || targetFeedForm.pending) || !disableRoleStep2 || saveFeedButton"
+          (click)="onSubmit(targetFeedForm, 'Draft')"
+          class="btn ubs-form-btn btn-primary main-btn">
+          Save
+        </button>
+        <button type="button" class="btn ubs-form-btn btn-primary main-btn" [disabled]="nextStepNewFeed"
+                (click)="onNextClick()">
+          <span>Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+
+<dqf-modal [modalSettings]="modalSettings">
+  <div class="dqfTitle">{{modalTitle}}</div>
+  <div class="modalBody">
+    <div class="" *ngIf="feedDefinition">
+
+      <target-detail [targetFeedList]="targetFeedList"
+                     [targetComponentMode]="targetMode"
+                     [feedTargetObj]="feedTargetObj"
+                     [targetFeedTypeDefault]="targetFeedTypeDefault"
+                     [feedType]="feedDefinition.feedTypeKey"
+                     (parentModalClose)= "closeChild($event)">
+      </target-detail>
+
+
+    </div>
+  </div>
+</dqf-modal>
+
+
+<!-- Modal -->
+<div class="modal fade" #modal tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{modalContent}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modalClose('Close')" data-dismiss="modal">Close
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+
+<article class="scheduler-border">
+<div class="form-header">Notifications</div>
+  <form #notificationFeedForm="ngForm" disableForm [disableTextControl]="disableRoleTarget">
+  <div class="row">
+    <!--col-12-->
+      <div class="col-md-6">
+
+        <div class="form-group ubs-form-element row">
+          <div class="col-md-5 ">
+            <label for="contactRole">Support Group</label>
+          </div>
+          <div class="col-md-6">
+            <select
+              required
+              id="contactRole"
+              name="contactRole"
+              class="form-control"
+              [(ngModel)]="feedNotificationObj.contactRole" >
+              <option value="">Select</option>
+              <option
+                *ngFor="let x of contactListSelect"
+                [value]="x.contactRoleKey"
+                [selected]="feedNotificationObj.contactRole === x.contactRoleKey">
+                {{x.contactRole}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        </div>
+        <div class="col-md-6">
+
+          <div class="form-group ubs-form-element row">
+                <div class="col-md-5 ">
+                  <label for="errorlevel">Severity</label>
+                </div>
+                <div class="col-md-6">
+                  <select
+                    required
+                    id="errorlevel"
+                    name="errorlevel"
+                    class="form-control"
+                    [(ngModel)]="feedNotificationObj.errorLevel" >
+                    <option >Select</option>
+                    <option
+                      *ngFor="let y of severtiyList"
+                      [value]="y"
+                      [selected]="feedNotificationObj.errorLevel === y">
+                      {{y}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          <!--col-md-6-->
+
+          <div class="col-12 ">
+            <hr>
+            <div class="pull-right">
+              <button type="button" [disabled]="(notificationFeedForm.invalid || notificationFeedForm.pending) || !disableRoleTarget"
+                  class="btn ubs-form-btn btn-primary main-btn" (click)="onSubmitSys()" >
+              <span *ngIf="editMode == 'add'">Add</span>
+              <span *ngIf="editMode == 'edit'">Save</span>
+              </button>
+
+              <button type="button" class="btn ubs-form-btn btn-primary" (click)="cancel()" [disabled]="!disableRoleTarget">Cancel</button>
+            </div>
+          </div>
+
+	<div class="col-12"> <div class="form-group ubs-form-element row"></div></div>
+
+	<div class="col-12">
+
+      <div *ngIf="notificationList.length > 0" >
+        <table class="table table-bordered table-striped dqf">
+          <thead>
+          <tr>
+            <th>Support Group</th>
+            <th>Severity</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let sys of notificationList">
+            <td widthX="40%" class="truncate-text">{{sys.contactRoleName}}</td>
+            <td widthX="40%" class="truncate-text">{{sys.errorLevel}}</td>
+            <td width="15%">
+
+              <div class="table-action-wrap" *ngIf="disableRoleTarget">
+                <div  class="table-action">
+                  <span
+                    style="cursor:pointer"
+                    (click)="editSystem(sys.notificationId)">
+                    Edit
+                  </span>
+                </div>
+                <div *ngIf="editMode != 'edit'" class="table-action">
+                  <span
+                    style="cursor:pointer"
+                    (click)="deleteSystem(sys.notificationId)">
+                    Delete
+                  </span>
+                </div>
+              </div>
+
+
+
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+
+</div>
+</form>
+</article>

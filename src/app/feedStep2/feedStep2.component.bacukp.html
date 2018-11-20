@@ -1,0 +1,152 @@
+<form #validationsForm="ngForm">
+
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Level 1 Validations</legend>
+        <div class="form-group row">
+          <label for="level1ValidationsRequired" class="col-md-3 col-form-label-sm">Level 1 Validations Required</label>
+          <div class="col-md-6">
+            <input class="form-group" name="level1ValidationsRequired"
+            id="level1ValidationsRequired" type="checkbox" value="" [(ngModel)]="level1Validations.validationsRequired">
+          </div>
+        </div>
+
+          <div class="form-group row">
+            <label for="duplicateRecordChk" class="col-md-3 col-form-label-sm">Duplicate Feed Check </label>
+            <div class="col-md-3">
+              <select
+                id="duplicateRecordChk"
+                name="duplicateRecordChk"
+                class="form-control"
+                [(ngModel)]="level1Validations.duplicateRecordChk"
+                required>
+                <option selected>select Type</option>
+                <option value="1">check 1</option>
+                <option value="2">check 2</option>
+                <option value="3">check 3</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceServer" class="col-md-2 col-form-label-sm">Record Count</label>
+          <div class="">
+            <label for="recordCountHigh" class="col-md-1 col-form-label-sm margin-top-5">High </label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" id="recordCountHigh" name="recordCountHigh" aria-describedby="typeHelp"
+                [(ngModel)]="level1Validations.recordCountHigh" required>
+            </div>
+          </div>
+          <div class="">
+            <label for="recordCountLow" class="col-md-1 col-form-label-sm margin-top-5">Low </label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" id="recordCountLow" name="recordCountLow" aria-describedby="typeHelp"
+                [(ngModel)]="level1Validations.recordCountLow" required>
+              </div>
+          </div>
+          <div class="">
+            <label for="recordCountSeverity" class="col-md-1 col-form-label-sm">Severity</label>
+            <div class="col-md-2">
+              <select
+                id="recordCountSeverity"
+                name="recordCountSeverity"
+                class="form-control"
+                [(ngModel)]="level1Validations.recordCountSeverity"
+                required>
+                <option selected>select Type</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceServer" class="col-md-2 col-form-label-sm">Weekend Holiday</label>
+          <div class="">
+            <label for="weekendHolidayHigh" class="col-md-1 col-form-label-sm margin-top-5">High </label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" id="weekendHolidayHigh" name="weekendHolidayHigh" aria-describedby="typeHelp"
+                [(ngModel)]="level1Validations.weekendHolidayHigh" required>
+            </div>
+          </div>
+          <div class="">
+            <label for="weekendHolidayLow" class="col-md-1 col-form-label-sm margin-top-5">Low </label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" id="weekendHolidayLow" name="weekendHolidayLow" aria-describedby="typeHelp"
+                [(ngModel)]="level1Validations.weekendHolidayLow" required>
+              </div>
+          </div>
+          <div class="">
+            <label for="weekendHolidaySeverity" class="col-md-1 col-form-label-sm">Severity</label>
+            <div class="col-md-2">
+              <select
+                id="weekendHolidaySeverity"
+                name="weekendHolidaySeverity"
+                class="form-control"
+                [(ngModel)]="level1Validations.weekendHolidaySeverity"
+                required>
+                <option selected>select Type</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+  </fieldset>
+
+  <div class="form-group">
+    &nbsp;
+  </div>
+
+  <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Level 2 Validations</legend>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="form-group row">
+          <label for="location" class="col-md-3 col-form-label-sm">Level 2 Validations Required</label>
+          <div class="col-md-6">
+            <input ng-model="level2Validations.validationsRequired" class="form-group" type="checkbox" value="">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="location" class="col-md-3 col-form-label-sm">Duplicate Record Check </label>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="feedSupport" name="feedSupport" aria-describedby="feedSupportHelp" placeholder="Enter Support "
+              [(ngModel)]="level2Validations.duplicateRecordChk" required>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="location" class="col-md-3 col-form-label-sm">Error Threshold% </label>
+            <div class="col-md-3">
+              <input type="text" class="form-control" id="feedSupport" name="feedSupport" aria-describedby="feedSupportHelp" placeholder="Enter Support "
+                [(ngModel)]="level2Validations.errorThreshold" required>
+            </div>
+            <div class="col-md-1">
+              &nbsp;
+            </div>
+            <label for="location" class="col-md-1 col-form-label-sm">Severity </label>
+            <div class="col-md-2">
+
+              <select
+                id="recCountLocation"
+                name="recCountLocation"
+                class="form-control"
+                [(ngModel)]="level2Validations.severity"
+                required>
+                <option selected>select Type</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+              </select>
+            </div>
+        </div>
+      </div>
+  </div>
+  </fieldset>
+</form>

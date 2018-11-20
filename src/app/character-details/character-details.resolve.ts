@@ -42,7 +42,7 @@ export class CharacterResolver implements Resolve<IStarWars> {
                 if (movie) {
                   this.character = movie
                     if (this.character) {
-                      console.log(`Actor was noasd,kns,dsa,dmnas,dnslalkjlt found`);
+                      console.log(`Actor was not found`);
                       const urls = [];
                       for (let i = 0; i < this.character.films.length; i++) {
                         urls.push(this.character.films[i]);

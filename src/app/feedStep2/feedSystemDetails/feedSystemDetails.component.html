@@ -1,0 +1,98 @@
+
+<form #systemDefForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <fieldset class="scheduler-border">
+    <legend class="scheduler-border">Source Details</legend>
+
+
+<!-- systemForm {{systemForm.controls.sourceDirectory.errors | json}} -->
+
+        <div class="form-group row">
+          <label for="sourceDirectory" class="col-md-4 col-form-label-sm">System Directory</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control"
+              id="sourceDirectory" name="sourceDirectory"
+              aria-describedby="sourceDirectoryHelp" placeholder="Enter Directory"
+              [(ngModel)]="systemForm.sourceDirectory"
+              minlength="8"
+              maxlength="15"
+              pattern="[0-9]{10}">
+              <!-- <p class="error" *ngIf="systemDefForm.value.sourceDirectory.length > 20 && systemDefForm.controls.sourceDirectory.errors">Max length is 20 chars</p> -->
+              <!-- <p>Form value: {{ systemForm.controls.sourceDirectory.errors | json }}</p> -->
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceDirectory" class="col-md-4 col-form-label-sm">Landing Directory</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control"
+              id="sourceDirectory" name="sourceDirectory"
+              aria-describedby="sourceDirectoryHelp" placeholder="Enter Directory"
+              [(ngModel)]="systemForm.sourceDirectory"
+              minlength="8"
+              maxlength="15"
+              pattern="[0-9]{10}">
+              <!-- <p class="error" *ngIf="systemDefForm.value.sourceDirectory.length > 20 && systemDefForm.controls.sourceDirectory.errors">Max length is 20 chars</p> -->
+              <!-- <p>Form value: {{ systemForm.controls.sourceDirectory.errors | json }}</p> -->
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceServerName" class="col-md-4 col-form-label-sm">Server Name</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="sourceServerName" name="sourceServerName" aria-describedby="sourceServerNameHelp" placeholder="Enter Name"
+              [(ngModel)]="systemForm.sourceServerName" >
+              <!-- <p class="error" *ngIf="systemDefForm.value.sourceServerName.length == 0">Required</p> -->
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourcePort" class="col-md-4 col-form-label-sm">Port Number</label>
+          <div class="col-md-8">
+            <input type="text" style="width:20%" class="form-control" id="sourcePort" name="sourcePort" aria-describedby="sourcePortHelp" placeholder="Enter Number"
+              [(ngModel)]="systemForm.sourcePort">
+
+              <!-- <p class="error" *ngIf="systemDefForm.value.sourcePort.length == 0">Required</p>
+              <p class="error" *ngIf="systemDefForm.value.sourcePort.length > 0 && systemDefForm.controls.sourcePort.errors">Only numbers max length 4 are allowed</p> -->
+              <!-- <p>Form value: {{ systemForm.value.sourcePort | json }}</p> -->
+              <!-- <p>Form value: {{ systemForm.controls.sourcePort.errors | json }}</p> -->
+          </div>
+          <div class="col-md-12">
+
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceTransportMethod" class="col-md-4 col-form-label-sm">Transport Method</label>
+          <div class="col-md-4">
+            <select
+              id="sourceTransportMethod"
+              name="sourceTransportMethod"
+              class="form-control"
+              [(ngModel)]="systemForm.sourceTransportMethod"
+              >
+              <option selected>Select Method</option>
+              <option value="1">PUSH</option>
+              <option value="2">PULL</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="sourceTransportType" class="col-md-4 col-form-label col-form-label-sm">Transport Type</label>
+          <div class="col-md-4">
+
+            <select
+              id="sourceTransportType"
+              name="sourceTransportType"
+              class="form-control"
+              [(ngModel)]="systemForm.sourceTransportType">
+              <option selected>select Type</option>
+              <option value="1">MFT</option>
+              <option value="2">EFT</option>
+            </select>
+          </div>
+        </div>
+
+    </fieldset>
+</form>
